@@ -22,6 +22,10 @@ sudo amazon-linux-extras install nginx1 -y
 sudo systemctl enable nginx
 sudo systemctl start nginx
 
+12. Check the states of the Instances.
+13. Immediately after launch, the instances are in pending state.
+14. To register the installed to any target group, it should be in Running state.
+
 
 
 Now we need to register the instances to a target group.
@@ -37,7 +41,8 @@ Now we need to register the instances to a target group.
 9. Select health check protocol as http 
 10. Select Health check paths/
 11. Now, from the list of available instances, register the targerts into the target group
-
+12. Let the registration of instances to the target group complete.
+13. Verify the helath status.
 
 
 Now we need to create the Application Load Balancer
