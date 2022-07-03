@@ -1,0 +1,48 @@
+version: 2
+services:
+    nodejs:
+        image: nodejs
+        depends_on:
+              - redis
+              - db
+        networks:
+              - back-end
+
+    redis:
+        image: redis
+        networks:
+              - back-end
+
+    angular:
+        image: angular
+        links:
+              - redis
+        ports:
+              - "80:80"
+              - "443:443"
+        networks:
+              - front-end
+
+    db:
+        image: mysql:8
+        environment:
+          MYSQL_ROOT_PASSWORD: my_db_password
+          MYSQL_DATABASE: app_db
+          MYSQL_USER: db_user
+          MYSQL_PASSWORD: db_user_password
+        ports:
+              - "6033:3306"
+
+        networks:
+              - back-end
+        #persistance volume for database
+        # volumes:
+        #       -dbdata:/var/lib/mysql
+
+networks:
+    front-end:
+    back-end:
+
+#To add persistance to the database, we can use preferres mechanism of using docker volumes
+# volumes:
+#     dbdata:
