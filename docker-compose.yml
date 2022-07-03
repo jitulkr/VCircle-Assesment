@@ -43,6 +43,6 @@ networks:
     front-end:
     back-end:
 
-#To add persistance to the database, we can use preferres mechanism of using docker volumes
+#To add persistance to the database, we can use preferred mechanism of using docker volumes
 # volumes:
 #     dbdata:
