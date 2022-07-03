@@ -1,0 +1,56 @@
+First, we need to launch 3 EC2 Instances.
+
+To do so, 
+we will navigate to Instance dashboard->
+1. select launch instances.
+2. Select Instance Name and tags
+3. Select Number of instances->3
+4. Select Amazon Machine Image- eg. Amazon Linux
+5. Select the Instance type-> eg. t2 micro(free tier)
+6. select key pair-> select existing or create new
+7. From Network- select vpc and subnet 
+8. Configure new security group or select existing security group
+9. Select whether to Allow ssh trafffic from anywhere/ particular ip
+10. Select whether to allow http/https from internet
+11. Select the storage
+
+
+to launch the Instances with nginx installed, go to Advanced details-> User data and paste the following-
+#!/bin/bash
+sudo yum update -y
+sudo amazon-linux-extras install nginx1 -y 
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
+
+
+Now we need to register the instances to a target group.
+
+1. Select target group
+2. create traget groups
+3. choose a target type-> instances
+4. Enter Target group name
+5. choose protocol for target group->http:80
+6. Select the vpc for the target group
+7. Select the Protocol version for the target group-> http1/http2/gRPC
+8. From Health checks->
+9. Select health check protocol as http 
+10. Select Health check paths/
+11. Now, from the list of available instances, register the targerts into the target group
+
+
+
+Now we need to create the Application Load Balancer
+
+1. Go to ec2 dashboard
+2. From load balancing-> select load balancers
+3. select create load balancers
+4. Select Application load balancer->create
+5. Enter Load balancer name
+6. Select scheme->internet facing or internal
+7. Select ip address type-> ipv4 or dual stack
+8. Select network mapping-> vpc
+9. Select mappings-> AZs and subnets
+10. Select secuity groups
+11. Add Listeners and routing->http:80
+12. Click on create
