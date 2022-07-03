@@ -1,7 +1,7 @@
 version: 2
 services:
     nodejs:
-        image: nodejs
+        image: node
         depends_on:
               - redis
               - db
@@ -14,7 +14,7 @@ services:
               - back-end
 
     angular:
-        image: angular
+        image: angular/ngcontainer
         links:
               - redis
         ports:
